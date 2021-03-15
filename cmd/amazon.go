@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -24,19 +23,13 @@ type Amazon struct {
 
 
 func (y *Amazon) getBaseUrl() string {
-	if query != "" {
-		country := viper.Get("country")
-		fmt.Println(country)
-
+		country := viper.Get("country")	
 		if country != "us" && country != nil {
-			amazonDomain = amazonDomain + "." + country.(string)
+			y.domain = y.domain + "." + country.(string)
 		}
-		search := strings.Join(strings.Split(query, " "), "+")
-		openBrowser(fmt.Sprint(amazonDomain+"/s/?field-keywords=", search))
-	}
-	return ""
+	return y.domain
 }
 
 func (y *Amazon) keywordPath(query string) string {
-	return strings.Replace(query," ","+",-1)
+	return "/s/?field-keywords="+ strings.Replace(query," ","+",-1)
 }

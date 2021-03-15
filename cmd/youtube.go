@@ -21,8 +21,6 @@ func configYoutube() {
 }
 
 
-
-
 type Youtube struct {domain string}
 
 func (y *Youtube) getBaseUrl() string {

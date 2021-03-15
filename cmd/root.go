@@ -10,8 +10,9 @@ import (
 var (
 	query      string
 	configFile string
-	amazon = Amazon{domain:"https://www.amazon.com"}
-	
+
+	vendors = []string{"amazon","newegg","ebay"}
+	socialMedia =[]string {"youtube"}	
 	rootCmd = &cobra.Command{
 		Use:   "mcuve",
 		Short: "Power cli to redirect to a social media.",
@@ -52,6 +53,15 @@ func init() {
 
 	// amz
 	rootCmd.AddCommand(amazonCmd)
+
+	// newegg
+	rootCmd.AddCommand(newEggCmd)
+
+	// ebay
+	rootCmd.AddCommand(ebayCmd)
+
+	// massive search
+	rootCmd.AddCommand(massiveCmd)
 
 	// config
 	rootCmd.AddCommand(configCmd)

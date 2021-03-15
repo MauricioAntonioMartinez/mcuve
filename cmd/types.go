@@ -33,6 +33,8 @@ func NewVendor(name string) (*Vendor,error) {
 		vd =  &Amazon{"https://www.amazon.com"}
 	case "newegg":
 		vd = &NewEgg{"https://www.newegg.com"}
+	case "ebay":
+		vd = &Ebay{"https://www.ebay.com"}
 	default:
 		return nil,errors.New("Unknown vendor")
 	}
