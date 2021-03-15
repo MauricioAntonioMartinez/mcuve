@@ -1,8 +1,7 @@
 package cmd
 
 import (
-	"fmt"
-	"os"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -13,23 +12,23 @@ var (
 		Use:   "yt",
 		Short: "Opens youtube to specified search",
 		Long:  "Opens youtube to specified search",
-		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println(cmd.ValidArgs)
-			fmt.Println(args)
-			fmt.Println(query)
-			if len(query) != 0 {
-				openBrowser("https://www.youtube.com/results?search_query=" + query)
-				return
-			}
-
-			if len(args) == 0 {
-				fmt.Println("Needs a query")
-				os.Exit(0)
-			}
-		},
+		Run: VendorRun("youtube"),
 	}
 )
 
 func configYoutube() {
 
+}
+
+
+
+
+type Youtube struct {domain string}
+
+func (y *Youtube) getBaseUrl() string {
+	return y.domain
+}
+
+func (y *Youtube) keywordPath(query string) string {
+	return "/results?search_query="+strings.Replace(query," ","+",-1)
 }
