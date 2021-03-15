@@ -5,12 +5,13 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/MauricioAntonioMartinez/mcuve/cmd/vendors"
 	"github.com/spf13/cobra"
 )
 
 type Searcher interface {
-	getBaseUrl() string
-	keywordPath(query string) string
+	GetBaseUrl() string
+	KeywordPath(query string) string
 }
 
 type Vendor struct {
@@ -18,23 +19,23 @@ type Vendor struct {
 }
 
 func (v *Vendor) search() {
-	url :=  v.getBaseUrl()
-	search := v.keywordPath(query)
+	url :=  v.GetBaseUrl()
+	search := v.KeywordPath(query)
 	openBrowser(url + search)
 }
 
-
 func NewVendor(name string) (*Vendor,error) { 
 	var vd Searcher
+
 	switch name { 
 	case "youtube":		
-		vd = &Youtube{"https://www.youtube.com"}
+		vd = &vendors.Youtube{Domain: "https://www.youtube.com"}
 	case "amazon":
-		vd =  &Amazon{"https://www.amazon.com"}
+		vd =  &vendors.Amazon{Domain: "https://www.amazon.com"}
 	case "newegg":
-		vd = &NewEgg{"https://www.newegg.com"}
+		vd = &vendors.NewEgg{Domain: "https://www.newegg.com"}
 	case "ebay":
-		vd = &Ebay{"https://www.ebay.com"}
+		vd = &vendors.Ebay{Domain: "https://www.ebay.com"}
 	default:
 		return nil,errors.New("Unknown vendor")
 	}

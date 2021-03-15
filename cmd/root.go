@@ -11,7 +11,7 @@ var (
 	query      string
 	configFile string
 
-	vendors = []string{"amazon","newegg","ebay"}
+	_vendors = []string{"amazon","newegg","ebay"}
 	socialMedia =[]string {"youtube"}	
 	rootCmd = &cobra.Command{
 		Use:   "mcuve",
