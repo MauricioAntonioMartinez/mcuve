@@ -6,6 +6,10 @@ type Ebay struct {
 	Domain string
 }
 
+func NewEbay() *Ebay {
+	return &Ebay{Domain: "https://www.ebay.com"}
+}
+
 func (y *Ebay) GetBaseUrl() string {
 	return y.Domain
 }

@@ -7,19 +7,24 @@ import (
 	"github.com/spf13/cobra"
 )
 
+func getVendors() []string {
+	return []string{"amazon", "newegg", "ebay"}
+}
+
+func getSocialNetworks() []string {
+	return []string{"youtube", "twitter", "udemy", "facebook"}
+}
+
 var (
 	query      string
 	configFile string
 
-	_vendors = []string{"amazon","newegg","ebay"}
-	socialMedia =[]string {"youtube"}	
 	rootCmd = &cobra.Command{
 		Use:   "mcuve",
 		Short: "Power cli to redirect to a social media.",
 		Long:  `Power cli to redirect to a social media.`,
 
 		Run: func(cmd *cobra.Command, args []string) {
-
 			cmd.Help()
 		},
 	}
@@ -60,8 +65,15 @@ func init() {
 	// ebay
 	rootCmd.AddCommand(ebayCmd)
 
-	// massive search
-	rootCmd.AddCommand(massiveCmd)
+	// all search
+	allFlags()
+	rootCmd.AddCommand(allCmd)
+
+	rootCmd.AddCommand(youtubeCmd)
+
+	rootCmd.AddCommand(googleCmd)
+
+	rootCmd.AddCommand(udemyCmd)
 
 	// config
 	rootCmd.AddCommand(configCmd)

@@ -19,34 +19,42 @@ type Vendor struct {
 }
 
 func (v *Vendor) search() {
-	url :=  v.GetBaseUrl()
+	url := v.GetBaseUrl()
 	search := v.KeywordPath(query)
 	openBrowser(url + search)
 }
 
-func NewVendor(name string) (*Vendor,error) { 
+func NewVendor(name string) (*Vendor, error) {
 	var vd Searcher
 
-	switch name { 
-	case "youtube":		
-		vd = &vendors.Youtube{Domain: "https://www.youtube.com"}
+	switch name {
+	case "youtube":
+		vd = vendors.NewYoutube()
 	case "amazon":
-		vd =  &vendors.Amazon{Domain: "https://www.amazon.com"}
+		vd = vendors.NewAmazon()
 	case "newegg":
-		vd = &vendors.NewEgg{Domain: "https://www.newegg.com"}
+		vd = vendors.NewNewEgg()
 	case "ebay":
-		vd = &vendors.Ebay{Domain: "https://www.ebay.com"}
+		vd = vendors.NewEbay()
+	case "twitter":
+		vd = vendors.NewTwitter()
+	case "udemy":
+		vd = vendors.NewUdemy()
+	case "facebook":
+		vd = vendors.NewFaceBook()
+	case "google":
+		vd = vendors.NewGoogle()
 	default:
-		return nil,errors.New("Unknown vendor")
+		return nil, errors.New("Unknown vendor")
 	}
-	return &Vendor{vd},nil
+	return &Vendor{vd}, nil
 }
 
-func VendorRun(vendor string) func (cmd *cobra.Command, args []string) {
+func VendorRun(vendor string) func(cmd *cobra.Command, args []string) {
 	return func(cmd *cobra.Command, args []string) {
-		vendor,_:=NewVendor(vendor)
+		vendor, _ := NewVendor(vendor)
 
-		if query !="" {
+		if query != "" {
 			vendor.search()
 			return
 		}
@@ -57,4 +65,3 @@ func VendorRun(vendor string) func (cmd *cobra.Command, args []string) {
 		}
 	}
 }
-
